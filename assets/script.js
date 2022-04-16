@@ -114,5 +114,41 @@ var completeEditTask = function(taskName, taskType, taskId){
   formEl.querySelector("#save-task").textContent = "Add Task";
 };
 
+var taskButtonHandler = function(event) {
+  // get target element from event
+  var targetEl = event.target;
+
+  if (targetEl.matches(".edit-btn")) {
+    console.log("edit", targetEl);
+    var taskId = targetEl.getAttribute("data-task-id");
+    editTask(taskId);
+  } else if (targetEl.matches(".delete-btn")) {
+    console.log("delete", targetEl);
+    var taskId = targetEl.getAttribute("data-task-id");
+    deleteTask(taskId);
+  }
+};
+
+var taskStatusChangeHandler = function(event) {
+  console.log(event.target.value);
+
+  // find task list item based on event.target's data-task-id attribute
+  var taskId = event.target.getAttribute("data-task-id");
+
+  var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+
+  // convert value to lower case
+  var statusValue = event.target.value.toLowerCase();
+
+  if (statusValue === "to do") {
+    tasksToDoEl.appendChild(taskSelected);
+  } else if (statusValue === "in progress") {
+    tasksInProgressEl.appendChild(taskSelected);
+  } else if (statusValue === "completed") {
+    tasksCompletedEl.appendChild(taskSelected);
+  }
+};
+
+
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 formEl.addEventListener("submit", taskFormHandler);
