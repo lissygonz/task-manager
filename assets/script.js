@@ -180,5 +180,13 @@ var deleteTask = function(taskId) {
 };
 
 
-pageContentEl.addEventListener("change", taskStatusChangeHandler);
+//Create a new task
 formEl.addEventListener("submit", taskFormHandler);
+
+//for edit and delete buttons
+pageContentEl.addEventListener("click", taskButtonHandler);
+
+
+//for changing the status
+pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
